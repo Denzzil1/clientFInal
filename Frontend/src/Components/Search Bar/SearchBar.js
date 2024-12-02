@@ -35,17 +35,16 @@ export function SearchBar(){
             return response.json();
         })
         .then((response) => {
-            //sessionStorage.setItem("cityData", response);
             sessionStorage.setItem("name", response.name);
             sessionStorage.setItem("temperature", response.main.temp);
             sessionStorage.setItem("feels-like", response.main.feels_like);
-            sessionStorage.setItem("desc", response.weather.main);
+            sessionStorage.setItem("desc", response.weather[0].description);
             sessionStorage.setItem("humidity", response.main.humidity);
             sessionStorage.setItem("wind-speed", response.wind.speed);
             sessionStorage.setItem("sunrise", response.sys.sunrise);
             sessionStorage.setItem("sunset", response.sys.sunset);
+            Navigate('/weather-details');
         })
-        Navigate('/weather-details');
     }
 
     return(

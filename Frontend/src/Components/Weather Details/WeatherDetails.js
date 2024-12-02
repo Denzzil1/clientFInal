@@ -8,23 +8,54 @@ export function WeatherDetails(){
     let sunrise = sessionStorage.getItem("sunrise");
     let sunset = sessionStorage.getItem("sunset");
 
+
+    //sunrise time
     let sunriseDate = new Date(sunrise * 1000);
-    sunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
-    if(sunriseDate.getHours() > 12){
-        sunrise+= " PM";
+    let minutesSunrise = sunriseDate.getMinutes().toString();
+    if(minutesSunrise.length === 2){
+        minutesSunrise = sunriseDate.getMinutes();
+    }
+    else if(minutesSunrise.length === 1){
+        minutesSunrise = "0" + sunriseDate.getMinutes();
+    }
+
+    let hours = sunriseDate.getHours()+5;
+    if(hours > 24){
+        hours -= 24;
+    }
+    else if(hours === 24){
+        hours = 12;
+    }
+    sunrise = hours + ":" + minutesSunrise;
+    if(hours > 12){
+        hours = (hours)-12;
+        sunrise = hours + ":" + minutesSunrise + " PM (UTC)";
     }
     else{
-        sunrise+= " AM";
+        sunrise+= " AM (UTC)";
     }
 
     let sunsetDate = new Date(sunset * 1000);
-    sunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
-    if(sunsetDate.getHours() > 12){
-        let hour = (sunsetDate.getHours())-12;
-        sunset = hour + ":" + sunsetDate.getMinutes() + " PM";
+    let minutesSunset = sunsetDate.getMinutes().toString();
+    if(minutesSunset.length === 2){
+        minutesSunset = sunsetDate.getMinutes();
+    }
+    else if(minutesSunset.length === 1){
+        minutesSunset = "0" + sunsetDate.getMinutes();
+    }
+    let hoursSunset = sunsetDate.getHours()+5;
+    if(hoursSunset > 24){
+        hoursSunset -= 24;
+    }
+    else if(hoursSunset === 24){
+        hoursSunset = 12;
+    }
+    if(hoursSunset > 12){
+        hoursSunset = (hoursSunset)-12;
+        sunset = hoursSunset + ":" + minutesSunset + " PM (UTC)";
     }
     else{
-        sunset+= " PM";
+        sunset = hoursSunset + ":" + minutesSunset + " AM (UTC)";
     }
 
     function convert(){
