@@ -1,8 +1,10 @@
 import './SearchBar.css';
 import React, {useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 export function SearchBar(){
     const [locations, setLocations] = useState(null);
+    const Navigate = useNavigate();
     //handle data input 
     const handleInput = (value) => {
         //find locations using the input
@@ -26,6 +28,26 @@ export function SearchBar(){
         }
     }
 
+    function cityClicked(location){
+       fetch(`/weatherCall?lat=${location.lat}&lon=${location.lon}`)
+       .then((response) => {
+            if(!response.ok) throw new Error ('Error fetching data');
+            return response.json();
+        })
+        .then((response) => {
+            //sessionStorage.setItem("cityData", response);
+            sessionStorage.setItem("name", response.name);
+            sessionStorage.setItem("temperature", response.main.temp);
+            sessionStorage.setItem("feels-like", response.main.feels_like);
+            sessionStorage.setItem("desc", response.weather.main);
+            sessionStorage.setItem("humidity", response.main.humidity);
+            sessionStorage.setItem("wind-speed", response.wind.speed);
+            sessionStorage.setItem("sunrise", response.sys.sunrise);
+            sessionStorage.setItem("sunset", response.sys.sunset);
+        })
+        Navigate('/weather-details');
+    }
+
     return(
         <div className="SearchBarDiv">
             <h1 className="Header">Search for weather details in your area!</h1>
@@ -36,7 +58,7 @@ export function SearchBar(){
                 <div>
                     {locations.map((locations, index) => (
                         <div>
-                        <p>{locations.name + ", " + locations.state + ", " + locations.country}</p>
+                        <p onClick={() => cityClicked(locations)}>{locations.name + ", " + locations.state + ", " + locations.country}</p>
                         </div>
                     ))}
                 </div>

@@ -39,6 +39,29 @@ fetch(process.env.REACT_APP_API_LINK_BASE_GEO + input + '&limit=5&appid=' + proc
 })
 })
 
+app.get("/weatherCall", (req, res) => {
+  //get the lat & lon from the call
+  let lon = req.query.lon;
+  let lat = req.query.lat;
+  //fetch data using the given lat&lon
+  //handle response
+  fetch(process.env.REACT_APP_API_LINK_BASE_WEATHER + "lat=" + lat + "&lon=" + lon + "&appid=" + process.env.REACT_APP_API_KEY + "&units=imperial")
+  .then(response => {
+    if(!response.ok){
+      throw new Error("network response not ok");
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+    res.json(data);
+    return ({data});
+  })
+  .catch(error => {
+    console.log(error);
+  })
+})
 
-//log that it's running properly
+
+//log that the server is running properly
 app.listen(port, () => console.log(`Server running on port ${port}`));
