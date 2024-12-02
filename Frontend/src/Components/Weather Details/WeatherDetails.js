@@ -26,19 +26,33 @@ export function WeatherDetails(){
     else{
         sunset+= " PM";
     }
+
+    function convert(){
+        if(document.getElementById("temp").innerHTML.includes("(F)")){
+            let tempC = ((temp - 32) * (5/9));
+            tempC = tempC.toFixed(2);
+            let feelsLikeC = ((feelsLike - 32) * (5/9));
+            feelsLikeC = feelsLikeC.toFixed(2);
+            document.getElementById("temp").innerHTML = "temperature (C): " + tempC + "°";
+            document.getElementById("feelsLike").innerHTML = "feels like (C): " + feelsLikeC + "°";
+        }
+        else{
+            document.getElementById("temp").innerHTML = "temperature (F): " + temp + "°";
+            document.getElementById("feelsLike").innerHTML = "feels like (F): " + feelsLike + "°";
+        }
+    }
     
     return(
         <div id="WeatherDetails">
             <h2>Weather Details for {name}:</h2>
-            <p>
-                temperature (F): {temp}°<br/>
-                feels like (F): {feelsLike}°<br/>
-                description: {desc}<br/>
-                humidity: {humidity}<br/>
-                wind speed: {windSpeed}<br/>
-                sunrise: {sunrise}<br/>
-                sunset: {sunset}<br/>
-            </p>
+            <p id="temp"> temperature (F): {temp}°</p>
+            <p id="feelsLike">feels like (F): {feelsLike}°</p>
+            <p>description: {desc}</p>
+            <p>humidity: {humidity}</p>
+             <p>wind speed: {windSpeed}</p>
+            <p>sunrise: {sunrise}</p>
+            <p>sunset: {sunset}</p> <br/>
+            <input type="button" value="convert temperature unit" onClick={() => convert()}></input>
         </div>
     )
 }
