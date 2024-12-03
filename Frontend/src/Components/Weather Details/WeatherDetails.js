@@ -1,4 +1,11 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
+
 export function WeatherDetails(){
+    const navigate = useNavigate();
+    const goToAirDetails = () => {
+        navigate('/airdetails');
+    }
     let name = sessionStorage.getItem("name");
     let temp = sessionStorage.getItem("temperature");
     let feelsLike = sessionStorage.getItem("feels-like");
@@ -84,6 +91,9 @@ export function WeatherDetails(){
             <p>sunrise: {sunrise}</p>
             <p>sunset: {sunset}</p> <br/>
             <input type="button" value="convert temperature unit" onClick={() => convert()}></input>
-        </div>
+            <button onClick={goToAirDetails} style={{ marginTop: '10px' }}>
+                View Air Details {/* New button for navigating to Air Details */}
+            </button>
+        </div>  
     )
 }
