@@ -43,6 +43,9 @@ export function SearchBar() {
                 sessionStorage.setItem("wind-speed", response.wind.speed);
                 sessionStorage.setItem("sunrise", response.sys.sunrise);
                 sessionStorage.setItem("sunset", response.sys.sunset);
+                sessionStorage.setItem("lat", location.lat);
+                sessionStorage.setItem("lon", location.lon);
+                
                 Navigate('/weather-details');
             });
     }

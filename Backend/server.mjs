@@ -74,6 +74,44 @@ app.get("/weatherCall", (req, res) => {
       console.log(error);
     });
 });
+app.get("/hourlyCall", (req, res) => {
+  const lon = req.query.lon;//getting lat and longitutde from onecall
+  const lat = req.query.lat;
+
+  
+  const apiUrl =
+    process.env.REACT_APP_API_LINK_BASE_ONECALL +
+    "lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&exclude=minutely,daily,alerts&appid=" +
+    process.env.REACT_APP_API_KEY +
+    "&units=imperial";//assembles link to run
+
+  console.log("API URL:", apiUrl); // debugging the API URL
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        console.error("Status Code:", response.status); // testing status code
+        return response.text().then((errorDetails) => {
+          console.error("Error Details:", errorDetails); // log details of error
+          throw new Error("Failed to fetch hourly data");
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Hourly Data:", data); // logging data
+      res.json(data); // sending hourly data to our frontend
+    })
+    .catch((error) => {
+      console.error("Error:", error.message);
+      res.status(500).send("Error fetching hourly data");//error message
+    });
+});
+
 
 //log that the server is running properly
 app.listen(port, () => console.log(`Server running on port ${port}`));
