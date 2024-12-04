@@ -18,7 +18,7 @@ export function SearchBar() {
                     setLocations(Object.values(response));
                 }
             })
-            
+
     };
 
     //when the search bar text value is changed
