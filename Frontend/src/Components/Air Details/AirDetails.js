@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 export function AirDetails() {
     const humidity = sessionStorage.getItem("humidity");

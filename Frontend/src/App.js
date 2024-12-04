@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {SearchBar} from './Components/Search Bar/SearchBar.js';
 import { WeatherDetails } from './Components/Weather Details/WeatherDetails.js';
