@@ -38,6 +38,8 @@
     ]
   },
   "devDependencies": {
-    "prettier-eslint": "^16.3.0"
+    "@types/jest": "^29.5.14",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.5"
   }
 }
